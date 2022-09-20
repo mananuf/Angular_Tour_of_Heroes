@@ -4,6 +4,7 @@ import { HeroInterface } from '../components/heroes/hero-interface';
 import { Heroes } from '../mock-heros';
 import { MessagesService } from './messages.service';
 import { HttpClient } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
