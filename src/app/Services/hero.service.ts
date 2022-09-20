@@ -14,7 +14,7 @@ export class HeroService {
 
   // log messages
   private log(message:string){
-    return this.messagesService.add(`(LOG) ${message}`)
+    return this.messagesService.add(`(HERO SERVICE) ${message}`)
   }
 
   /**
@@ -45,16 +45,21 @@ private handleError<T>(operation = 'operation', result?: T) {
 
     // get heroes from server
   getHeroes(): Observable <HeroInterface[]>{
-    this.messagesService.add('Heroes loaded successfully!') // display this message
+    //this.messagesService.add('Heroes loaded successfully!') // display this message
     return this.http.get<HeroInterface[]>(this.heroesURL).pipe(
+      tap(() => this.log('fetched successfully')),
       catchError(this.handleError<HeroInterface[]>('getHeroes', []))
     );
   }
 
   getHero(id:number): Observable<HeroInterface>{
-    const hero = Heroes.find(h => h.id === id)!;
-    this.messagesService.add(`fetched: ${hero.name} Details`)
-    return of(hero);
+    // const hero = Heroes.find(h => h.id === id)!;
+    const id_url = `${this.heroesURL}/${id}`
+    // this.messagesService.add(`fetched: ${hero.name} Details`)
+    return this.http.get<HeroInterface>(id_url).pipe(
+      tap(_ => this.log(`fetched id:${id} successfully`)),
+      catchError(this.handleError<HeroInterface>(`getHero id=${id}`))
+    )
   }
 
 }
