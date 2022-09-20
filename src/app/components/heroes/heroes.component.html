@@ -1,4 +1,4 @@
-<div class="container flex space-x-7 max-w-md rounded-md shadow-md p-3">
+<div class="container flex space-x-7 max-w-lg rounded-md shadow-md p-3">
   <div>
     <h2 class="text-blue-900 text-2xl font-semibold">List of Heroes</h2>
     <hr class="border-2 border-blue-900" />
@@ -21,6 +21,20 @@
         </a>
       </li>
     </ul>
+  </div>
+
+  <div>
+    <label for="new-hero">Hero name: </label>
+    <input id="new-hero" class="border-2 border-slate-400" #heroName />
+
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button
+      type="button"
+      class="bg-green-700 text-white px-2 py-1 my-3"
+      (click)="add(heroName.value); heroName.value = ''"
+    >
+      Add hero
+    </button>
   </div>
 
   <!-- <app-hero-detail [selected_hero]="selected_hero"></app-hero-detail> -->
