@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HeroInterface } from '../components/heroes/hero-interface';
-import { Heroes } from '../mock-heros';
 import { MessagesService } from './messages.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -11,6 +10,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class HeroService {
   private heroesURL = 'http://localhost:3000/hereos'
+
+  // define http header
+  httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
   // log messages
   private log(message:string){
@@ -59,6 +63,23 @@ private handleError<T>(operation = 'operation', result?: T) {
     return this.http.get<HeroInterface>(id_url).pipe(
       tap(_ => this.log(`fetched id:${id} successfully`)),
       catchError(this.handleError<HeroInterface>(`getHero id=${id}`))
+    )
+  }
+
+  /** PUT: update the hero on the server */
+  updateHero(hero:HeroInterface): Observable<any>{
+    return this.http.put(this.heroesURL, hero, this.httpOptions).pipe(
+      tap(_ => this.log(`${hero.name} was updated successfully`)),
+      catchError(this.handleError<any>(`error updating ${hero.name}`))
+    )
+  }
+
+  addHero(hero: HeroInterface): Observable<HeroInterface>{
+    return this.http.post<HeroInterface>(this.heroesURL, hero, this.httpOptions).pipe(
+      tap((newHero:HeroInterface)=> this.log(`successfully added new Hero ${newHero.name}`)),
+      catchError(this.handleError<HeroInterface>(
+        `failed to add hero ${hero.name}`
+      ))
     )
   }
 
