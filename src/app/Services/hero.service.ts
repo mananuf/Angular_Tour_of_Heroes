@@ -3,18 +3,23 @@ import { Observable, of } from 'rxjs';
 import { HeroInterface } from '../components/heroes/hero-interface';
 import { Heroes } from '../mock-heros';
 import { MessagesService } from './messages.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
+  private heroesURL = 'http://localhost:3000/hereos'
 
-  constructor(private messagesService: MessagesService) { }
+  constructor(
+    private messagesService: MessagesService, 
+    private http: HttpClient
+    ) { }
 
+    // get heroes from server
   getHeroes(): Observable <HeroInterface[]>{
-    const heroes = of(Heroes)
     this.messagesService.add('Heroes loaded successfully!') // display this message
-    return heroes;
+    return this.http.get<HeroInterface[]>(this.heroesURL);
   }
 
   getHero(id:number): Observable<HeroInterface>{
