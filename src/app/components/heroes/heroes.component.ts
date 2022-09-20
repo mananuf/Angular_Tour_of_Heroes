@@ -28,6 +28,14 @@ export class HeroesComponent implements OnInit {
     // console.log(this.selected_hero)
   }
   
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as HeroInterface)
+      .subscribe(data => {
+        this.heroes?.push(data);
+      });
+  }
   
   
 
