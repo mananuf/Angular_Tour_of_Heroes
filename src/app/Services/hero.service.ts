@@ -68,18 +68,27 @@ private handleError<T>(operation = 'operation', result?: T) {
 
   /** PUT: update the hero on the server */
   updateHero(hero:HeroInterface): Observable<any>{
-    return this.http.put(this.heroesURL, hero, this.httpOptions).pipe(
-      tap(_ => this.log(`${hero.name} was updated successfully`)),
+    return this.http.put(`${this.heroesURL}/${hero.id}`, hero, this.httpOptions).pipe(
+      tap(() => this.log(`${hero.name} was updated successfully`)),
       catchError(this.handleError<any>(`error updating ${hero.name}`))
     )
   }
 
+  // post new hero
   addHero(hero: HeroInterface): Observable<HeroInterface>{
     return this.http.post<HeroInterface>(this.heroesURL, hero, this.httpOptions).pipe(
       tap((newHero:HeroInterface)=> this.log(`successfully added new Hero ${newHero.name}`)),
       catchError(this.handleError<HeroInterface>(
         `failed to add hero ${hero.name}`
       ))
+    )
+  }
+
+  // delete hero
+  deleteHero(hero: HeroInterface): Observable<any>{
+    return this.http.delete(`${this.heroesURL}/${hero.id}`,this.httpOptions).pipe(
+      tap(() => this.log(`deleted ${hero.name} successfully`)),
+      catchError(this.handleError('deleteHero'))
     )
   }
 
