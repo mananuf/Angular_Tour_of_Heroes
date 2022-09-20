@@ -1,0 +1,12 @@
+<h1 class="text-xl text-stone-800 text-center leading-10 mt-10 max-w-md">
+  Top Heroes
+</h1>
+<div class="flex justify-around items-center p-3 max-w-md">
+  <a
+    *ngFor="let hero of heroes"
+    class="bg-black text-white font-semibold text-lg px-3 py-1 rounded-md"
+    routerLink="/detail/{{ hero.id }}"
+  >
+    {{ hero.name }}
+  </a>
+</div>

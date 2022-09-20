@@ -1,0 +1,28 @@
+<div class="container flex space-x-7 max-w-md rounded-md shadow-md p-3">
+  <div>
+    <h2 class="text-blue-900 text-2xl font-semibold">List of Heroes</h2>
+    <hr class="border-2 border-blue-900" />
+    <ul>
+      <li>
+        <a
+          *ngFor="let hero of heroes"
+          routerLink="/detail/{{ hero.id }}"
+          [class.selected]="hero === selected_hero"
+          class="flex space-x-6 py-2 px-4 m-2 bg-blue-800 text-blue-50 rounded-md cursor-pointer"
+        >
+          <div class="space-x-3">
+            <span class="font-semibold">id:</span>
+            <span>{{ hero.id }}</span>
+          </div>
+          <div class="space-x-3">
+            <span class="font-semibold">name:</span>
+            <span>{{ hero.name }}</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- <app-hero-detail [selected_hero]="selected_hero"></app-hero-detail> -->
+  <!-- <app-hero-detail *ngIf="hero"></app-hero-detail> -->
+</div>

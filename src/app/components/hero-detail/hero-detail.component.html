@@ -1,0 +1,33 @@
+<div class="" *ngIf="hero">
+  <h2 class="text-blue-900 text-2xl font-semibold">
+    {{ hero.name | uppercase }} Details
+  </h2>
+  <hr class="border-2 border-blue-900" />
+  <div class="divide-y text-slate-500">
+    <div class="space-x-6 mt-2">
+      <span class="font-semibold">id:</span>
+      <span>{{ hero.id }}</span>
+    </div>
+    <div class="space-x-6 mt-2">
+      <span class="font-semibold">name:</span>
+      <span>{{ hero.name }}</span>
+    </div>
+  </div>
+  <div class="my-5">
+    <div action="" class="flex items-center space-x-3">
+      <label for="">Modify hero:</label>
+      <input
+        type="text"
+        [(ngModel)]="hero.name"
+        class="p-2 outline-1 border-slate-500 outline-blue-500 border-2 rounded-md"
+      />
+    </div>
+  </div>
+</div>
+<button
+  type="button"
+  class="bg-blue-600 px-2 py-1 text-white"
+  (click)="goBack()"
+>
+  go back
+</button>

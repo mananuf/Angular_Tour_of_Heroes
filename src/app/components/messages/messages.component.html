@@ -1,0 +1,16 @@
+<div
+  *ngIf="messagesService.message.length"
+  class="container flex justify-between items-center absolute right-0 max-w-sm py-3 px-4 shadow-lg transition ease-in-out delay-500 duration-500"
+>
+  <ul>
+    <li class="text-sm" *ngFor="let message of messagesService.message">
+      {{ message }}
+    </li>
+  </ul>
+  <button
+    class="text-red-700 px-2 font-bold text-xl rounded-full"
+    (click)="messagesService.clear()"
+  >
+    &times;
+  </button>
+</div>
