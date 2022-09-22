@@ -1,4 +1,20 @@
 <div class="p-4 max-w-md">
   <p class="text-blue-8">Search hero</p>
-  <input #searchTerm type="text" class="border-2 rounded-md" />
+  <input
+    #searchInput
+    type="text"
+    class="border-2 border-slate-600 outline-blue-600 p-1 rounded-md"
+    (input)="search(searchInput.value)"
+  />
+
+  <ul>
+    <li *ngFor="let hero of heroes$ | async">
+      <a
+        class="bg-blue-800 text-white font-semibold text-lg px-3 py-1 rounded-md"
+        routerLink="/detail/{{ hero.id }}"
+      >
+        {{ hero.name }}
+      </a>
+    </li>
+  </ul>
 </div>
