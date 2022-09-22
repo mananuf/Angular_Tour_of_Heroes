@@ -92,4 +92,19 @@ private handleError<T>(operation = 'operation', result?: T) {
     )
   }
 
+  // Get heroes by search term
+  searchHero(search_term: string): Observable<HeroInterface[]>{
+    if(!search_term.trim()){
+      // if search does not meet any corresponding results
+      // return empty
+      return of([])
+    }
+    return this.http.get<HeroInterface[]>(`${this.heroesURL}/?name=${search_term}`).pipe(
+      tap(x => x.length ?
+        this.log(`found heroes matching "${search_term}"`):
+        this.log(`no heroes matching "${search_term}"`)),
+        catchError(this.handleError<HeroInterface[]>('searchHero', []))
+    )
+  }
+
 }
