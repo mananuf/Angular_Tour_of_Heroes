@@ -99,7 +99,7 @@ private handleError<T>(operation = 'operation', result?: T) {
       // return empty
       return of([])
     }
-    return this.http.get<HeroInterface[]>(`${this.heroesURL}/?name=${search_term}`).pipe(
+    return this.http.get<HeroInterface[]>(`${this.heroesURL}/?q=${search_term}`).pipe(
       tap(x => x.length ?
         this.log(`found heroes matching "${search_term}"`):
         this.log(`no heroes matching "${search_term}"`)),
